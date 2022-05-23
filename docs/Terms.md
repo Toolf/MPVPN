@@ -1,0 +1,1 @@
+VPN (Virtual Private Network) - віртуальна приватна мережа.
