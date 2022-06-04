@@ -8,3 +8,6 @@
 - [RFC 6824](https://www.rfc-editor.org/rfc/rfc6824.html)
 - [RFC 8684](https://www.rfc-editor.org/rfc/rfc8684.html)
 - [Testing MPTCP](https://projekter.aau.dk/projekter/files/239494485/16gr1020.pdf)
+- [WireGuard](https://www.wireguard.com/)
+- [Shaping the Linux kernel MPTCP implementation towards upstream acceptance](https://people.netfilter.org/pablo/netdev0.1/papers/Shaping-the-Linux-kernel-MPTCP-implementation-towards-upstream.pdf)
+- [Improving Multipath TCP](https://inl.info.ucl.ac.be/system/files/phd-thesis_1.pdf)
