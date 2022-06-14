@@ -32,7 +32,7 @@ void main() async {
       vtrunkdConfigurator: vtrunkdConfigurator,
       vtrunkdConfig: vtrunkdConfig,
     );
-    networkChecker.checkInterfaces().catchError(
+    await networkChecker.checkInterfaces().catchError(
           (e) => print(e),
         );
   });

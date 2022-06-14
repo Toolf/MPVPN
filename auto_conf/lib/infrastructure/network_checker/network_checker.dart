@@ -13,7 +13,7 @@ class NetworkChecker {
 
   final Map<String, int> _configuredDevices = {};
   static const tablesCount = 10;
-  final List<int> tableUnused = List.generate(tablesCount, (i) => i + 1);
+  final List<int> tableUnused = List.generate(tablesCount, (i) => i + 101);
 
   NetworkChecker({
     required this.mptcpConfigurator,
@@ -57,12 +57,12 @@ class NetworkChecker {
     //   }
     // }
 
-    mptcpConfigurator.configurate(
+    await mptcpConfigurator.configurate(
       mptcpConfig,
       newInterfaces,
       tableUnused,
     );
-    vtrunkdConfigurator.configurate(
+    await vtrunkdConfigurator.configurate(
       vtrunkdConfig,
       newInterfaces,
     );

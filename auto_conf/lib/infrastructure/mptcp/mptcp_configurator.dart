@@ -17,7 +17,6 @@ class MptcpConfigurator {
     MptcpConfig config,
     NetworkInterface networkInterface,
   ) {
-    if (config.networkInterfaceConfigs == null) return config.defaultConfig;
     for (final networkInterfaceConfig
         in config.networkInterfaceConfigs.values) {
       if (networkInterfaceConfig.ipAddress != null &&
@@ -37,17 +36,18 @@ class MptcpConfigurator {
   }
 
   prepare(int tableCount) async {
-    for (int i = 1; i <= tableCount; i++) {
-      print("ip rule add fwmark 0x$i lookup 10$i");
+    for (int i = 101; i <= 100 + tableCount; i++) {
+      print("ip rule add fwmark 0x$i lookup $i");
       await Process.run("ip", [
         "rule",
         "add",
         "fwmark",
         "0x$i",
         "lookup",
-        "10$i",
+        "$i",
       ]).then((ProcessResult res) {
         if (kDebugMode) {
+          print("RESULT:");
           print(res.exitCode);
           print(res.stdout);
           print(res.stderr);
@@ -64,6 +64,7 @@ class MptcpConfigurator {
     for (final networkInterface in networkInterfaces) {
       final networkInterfaceConfig =
           _getInterfaceConfig(config, networkInterface);
+      if (networkInterfaceConfig.dev == "") continue;
 
       final gateway = networkInterfaceConfig.via ??
           _getGatewayAddress(

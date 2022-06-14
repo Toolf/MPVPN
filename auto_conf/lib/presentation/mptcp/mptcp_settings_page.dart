@@ -58,10 +58,10 @@ class MptcpSettingsView extends StatelessWidget {
         onPressed: () {
           if (kDebugMode) {
             print("add new network interface");
-            context.read<MptcpSettingsBloc>().add(
-                  MptcpSettingsAddNetworkInterfaceEvent(),
-                );
           }
+          context.read<MptcpSettingsBloc>().add(
+                MptcpSettingsAddNetworkInterfaceEvent(),
+              );
         },
         backgroundColor: mainDarkColor,
         child: const Icon(Icons.add),
@@ -403,12 +403,12 @@ class MptcpSettingsView extends StatelessWidget {
                   onPressed: () {
                     if (kDebugMode) {
                       print("delete configuration");
-                      context.read<MptcpSettingsBloc>().add(
-                            MptcpSettingsDeleteNetworkInterfaceEvent(
-                              networkInterfaceConfig: interfaceConfig,
-                            ),
-                          );
                     }
+                    context.read<MptcpSettingsBloc>().add(
+                          MptcpSettingsDeleteNetworkInterfaceEvent(
+                            networkInterfaceConfig: interfaceConfig,
+                          ),
+                        );
                   },
                 ),
               ],
