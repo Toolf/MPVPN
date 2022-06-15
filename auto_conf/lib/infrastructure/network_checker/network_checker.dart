@@ -48,19 +48,10 @@ class NetworkChecker {
       tableUnused.add(removedDevices[dev]!);
       _configuredDevices.remove(dev);
     }
-    // for (final interface in newInterfaces) {
-    //   final dev = interface.name;
-    //   if (tableUnused.isNotEmpty) {
-    //     _configuredDevices[dev] = tableUnused.first;
-    //     tableUnused.removeAt(0);
-    //     networkInterfaces.add(interface);
-    //   }
-    // }
 
     await mptcpConfigurator.configurate(
       mptcpConfig,
       newInterfaces,
-      tableUnused,
     );
     await vtrunkdConfigurator.configurate(
       vtrunkdConfig,

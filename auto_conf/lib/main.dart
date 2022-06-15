@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:auto_conf/infrastructure/vtrunkd/config_storage/vtrunkd_config_storage.dart';
 import 'package:cron/cron.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
@@ -15,17 +16,11 @@ import 'presentation/mptcp/mptcp_settings_page.dart';
 
 void main() async {
   final cron = Cron();
-  cron.schedule(Schedule.parse('* */1 * * * *'), () async {
-    print("CRON");
+  cron.schedule(Schedule.parse('*/10 * * * * *'), () async {
     final mptcpConfigurator = MptcpConfigurator();
     final mptcpConfig = MptcpConfigStorage().loadOrDefaultConfig();
     final vtrunkdConfigurator = VtrunkdConfigurator();
-    final vtrunkdConfig = VtrunkdConfig(
-      configPath: '/etc/vtrunkd.conf',
-      port: 6000,
-      serverIpAddress: InternetAddress("172.16.5.1"),
-      sessions: [1, 2],
-    );
+    final vtrunkdConfig = VtrunkdConfigStorage().loadOrDefaultConfig();
     final NetworkChecker networkChecker = NetworkChecker(
       mptcpConfigurator: mptcpConfigurator,
       mptcpConfig: mptcpConfig,

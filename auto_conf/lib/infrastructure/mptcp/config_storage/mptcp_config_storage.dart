@@ -9,7 +9,6 @@ class MptcpConfigStorage implements IMptcpConfigStorage {
 
   @override
   saveConfig(MptcpConfig config) {
-    print("saved");
     final box = GetStorage();
     box.write("mptcp_config", config);
     return config;
@@ -17,9 +16,7 @@ class MptcpConfigStorage implements IMptcpConfigStorage {
 
   @override
   MptcpConfig loadOrDefaultConfig() {
-    print("loaded config");
     final box = GetStorage();
-    print(box.hasData("mptcp_config"));
     final config =
         box.hasData("mptcp_config") ? box.read("mptcp_config") : defaultConfig;
     return config;

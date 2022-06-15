@@ -28,11 +28,11 @@ for delay in ${delays[@]}; do
 
         # setup for all interfaces on client
         for interface in ${client_interfaces[@]}; do
-            exec "./client_qdisc_setup.sh $interface $bandwidth $delay 0"
+            ./client_qdisc_setup.sh $interface $bandwidth $delay 0
         done
         # setup for all interfaces on server
         for interface in ${server_interfaces[@]}; do
-            exec "./server_qdisc_setup.sh $interface $bandwidth $delay 0"
+            ./server_qdisc_setup.sh $interface $bandwidth $delay 0
         done
 
         sleep 5

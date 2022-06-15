@@ -37,17 +37,9 @@ class MptcpConfigurator {
 
   prepare(int tableCount) async {
     for (int i = 101; i <= 100 + tableCount; i++) {
-      print("ip rule add fwmark 0x$i lookup $i");
-      await Process.run("ip", [
-        "rule",
-        "add",
-        "fwmark",
-        "0x$i",
-        "lookup",
-        "$i",
-      ]).then((ProcessResult res) {
+      await Process.run("ip", ["rule", "add", "fwmark", "0x$i", "lookup", "$i"])
+          .then((ProcessResult res) {
         if (kDebugMode) {
-          print("RESULT:");
           print(res.exitCode);
           print(res.stdout);
           print(res.stderr);
@@ -59,32 +51,21 @@ class MptcpConfigurator {
   configurate(
     MptcpConfig config,
     List<NetworkInterface> networkInterfaces,
-    List<int> tableUnused,
   ) async {
     for (final networkInterface in networkInterfaces) {
+      // Вибірка конфігурації для даного інтерфейсу
       final networkInterfaceConfig =
           _getInterfaceConfig(config, networkInterface);
       if (networkInterfaceConfig.dev == "") continue;
+      if (networkInterfaceConfig.fwmark == null) continue;
 
       final gateway = networkInterfaceConfig.via ??
           _getGatewayAddress(
             networkInterface.addresses[0].address,
           );
 
-      if (tableUnused.isEmpty) {
-        if (kDebugMode) {
-          print("All tables in used");
-        }
-        return;
-      }
+      final tableNumber = networkInterfaceConfig.fwmark;
 
-      final tableNumber = tableUnused.first;
-      tableUnused.removeAt(0);
-
-      print(
-        "ip route add default via $gateway dev ${networkInterfaceConfig.dev} "
-        "table $tableNumber metric ${networkInterfaceConfig.metric}",
-      );
       await Process.run("ip", [
         "route",
         "add",
@@ -96,7 +77,7 @@ class MptcpConfigurator {
         "table",
         "$tableNumber",
         "metric",
-        "${networkInterfaceConfig.metric}",
+        "${networkInterfaceConfig.metric}"
       ]).then((ProcessResult res) {
         if (kDebugMode) {
           print(res.exitCode);

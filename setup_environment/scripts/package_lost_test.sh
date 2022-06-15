@@ -21,11 +21,11 @@ for delay in ${delays[@]}; do
 
             # setup for all interfaces on client
             for interface in ${client_interfaces[@]}; do
-                exec "./client_qdisc_setup.sh $interface $bandwidth $delay $loss"
+                ./client_qdisc_setup.sh $interface $bandwidth $delay $loss
             done
             # setup for all interfaces on server
             for interface in ${server_interfaces[@]}; do
-                exec "./server_qdisc_setup.sh $interface $bandwidth $delay $loss"
+                ./server_qdisc_setup.sh $interface $bandwidth $delay $loss
             done
 
             iperf3 -c 10.0.0.1 -t 60 > "./data/openvpn/loss/$bandwidth:$delay:$loss.log"

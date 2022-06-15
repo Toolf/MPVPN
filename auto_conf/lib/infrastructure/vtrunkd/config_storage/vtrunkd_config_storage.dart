@@ -15,17 +15,14 @@ class VtrunkdConfigStorage implements IVtrunkdConfigStorage {
 
   @override
   saveConfig(VtrunkdConfig config) {
-    print("saved");
     final box = GetStorage();
     box.write("vtrunkd_config", config);
     return config;
-    ;
   }
 
   @override
   VtrunkdConfig loadOrDefaultConfig() {
     final box = GetStorage();
-    print(box.hasData("vtrunkd_config"));
     final config = box.hasData("vtrunkd_config")
         ? box.read("vtrunkd_config")
         : defaultConfig;
