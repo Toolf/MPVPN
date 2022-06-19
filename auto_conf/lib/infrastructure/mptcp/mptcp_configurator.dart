@@ -62,7 +62,7 @@ class MptcpConfigurator {
       if (networkInterfaceConfig.dev == "") continue;
       if (networkInterfaceConfig.fwmark == null) continue;
 
-      final gateway = networkInterfaceConfig.via ??
+      final gateway = networkInterfaceConfig.via?.address ??
           _getGatewayAddress(
             networkInterface.addresses[0].address,
           );
