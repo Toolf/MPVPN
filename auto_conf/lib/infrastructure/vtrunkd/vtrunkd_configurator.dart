@@ -7,6 +7,9 @@ class VtrunkdConfigurator {
   configurate(
       VtrunkdConfig config, List<NetworkInterface> networkInterfaces) async {
     for (final sessionNumber in config.sessions) {
+      print(
+        "vtrunkd -P ${config.port} -f ${config.configPath} 000000_$sessionNumber ${config.serverIpAddress}",
+      );
       await Process.run("vtrunkd", [
         "-P",
         "${config.port}",

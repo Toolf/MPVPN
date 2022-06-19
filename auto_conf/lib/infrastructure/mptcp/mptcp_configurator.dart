@@ -37,6 +37,9 @@ class MptcpConfigurator {
 
   prepare(int tableCount) async {
     for (int i = 101; i <= 100 + tableCount; i++) {
+      print(
+        "ip rule add fwmark 0x$i lookup $i",
+      );
       await Process.run("ip", ["rule", "add", "fwmark", "0x$i", "lookup", "$i"])
           .then((ProcessResult res) {
         if (kDebugMode) {
@@ -66,6 +69,8 @@ class MptcpConfigurator {
 
       final tableNumber = networkInterfaceConfig.fwmark;
 
+      print(
+          "ip route add default via $gateway dev ${networkInterfaceConfig.dev} table $tableNumber metric ${networkInterfaceConfig.metric}");
       await Process.run("ip", [
         "route",
         "add",
